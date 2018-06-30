@@ -25,7 +25,8 @@ int main(){
     cout<<"2. Listar una seleccion: "<<endl;
     cout<<"3. Eliminar una seleccion: "<<endl;
     cout<<"4. Guardar una seleccion: "<<endl;
-    cout<<"5. Salir: "<<endl;
+    cout<<"5. Leer el binario: "<<endl;
+    cout<<"6. Salir: "<<endl;
     cin>>opcion;
 
     switch (opcion) {
@@ -52,12 +53,10 @@ int main(){
         listas->push_back(nodo);
         cout<<"Agregado con exito"<<endl;
         ofstream fsalida ("Seleccion.dat", ios::out | ios::binary | ios::app);
-        fsalida.write(reinterpret_cast<char*>(&sele),sizeof(Seleccion*));
+        sele->write(fsalida);
         fsalida.close();
         cout<<"Agregado al binario: "<<endl;
         cout<<endl;
-
-
       }
         break;
 
@@ -74,6 +73,31 @@ int main(){
         break;
 
       case 5:
+      {
+          ifstream readBinary("Seleccion.dat",ios::binary);
+          Seleccion otraSeleccion;
+          otraSeleccion.read(readBinary);
+          readBinary.close();
+          cout<<otraSeleccion<<endl;
+
+
+
+      /*int size;
+      FILE *arch;
+      arch=fopen("Seleccion.dat","rb");
+      if (arch==NULL){
+        cout<<"No existe el fichero"<<endl;
+      }
+      Seleccion* sele1;
+      fseek(arch,5,SEEK_SET);
+      fread(&sele1, sizeof(size), 1, arch);
+      string nombres;
+      cout<<nombres<<endl;
+      fclose(arch);*/
+
+      }
+        break;
+      case 6:
         seguir = false;
         break;
     }

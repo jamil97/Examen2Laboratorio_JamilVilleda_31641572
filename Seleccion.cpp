@@ -3,6 +3,9 @@
 #include <iostream>
 
 using namespace std;
+Seleccion::Seleccion(){
+
+}
 
 Seleccion::Seleccion(string nombreSeleccion, int partidosGanados, int partidosPerdidos, int partidosEmpatados, int golesAnotados, string maximoGoleador, int golesJugador){
   this->nombreSeleccion = nombreSeleccion;
@@ -16,32 +19,27 @@ Seleccion::Seleccion(string nombreSeleccion, int partidosGanados, int partidosPe
 
 void Seleccion::read(ifstream& in){
   int size;
-  //partidosGanados
+
   in.read(reinterpret_cast<char*>(&partidosGanados),sizeof(int));
 
-  //partidosPerdidos
   in.read(reinterpret_cast<char*>(&partidosPerdidos),sizeof(int));
 
-  //partidosEmpatados
   in.read(reinterpret_cast<char*>(&partidosEmpatados),sizeof(int));
 
-  //golesAnotados
   in.read(reinterpret_cast<char*>(&golesAnotados),sizeof(int));
 
-  //golesJugador
   in.read(reinterpret_cast<char*>(&golesJugador),sizeof(int));
 
-  //nombreSeleccion
   in.read(reinterpret_cast<char*>(&size),sizeof(int));
   char numBuffer[size];
   in.read(numBuffer,size);
   nombreSeleccion=numBuffer;
 
-  //maximoGoleador
   in.read(reinterpret_cast<char*>(&size),sizeof(int));
   char maxGolBuffer[size];
-  in.read(numBuffer,size);
-  maximoGoleador=numBuffer;
+  in.read(maxGolBuffer,size);
+  maximoGoleador=maxGolBuffer;
+
 }
 
 void Seleccion::write(ofstream& out){
@@ -69,6 +67,54 @@ void Seleccion::write(ofstream& out){
 
   //Goles Jugador
   out.write(reinterpret_cast<char*>(&golesJugador),sizeof(int));
+
+}
+
+istream& operator>>(istream& in, Seleccion& sele){
+  string buffer;
+  //leer una lÃ­nea del archivo
+  getline(in,buffer);
+  string parse="";
+  int cont=0;
+  for(int i = 0; i<buffer.size();i++){
+    if(buffer[i]!=',')
+      parse+=buffer[i];
+    else{
+      switch(cont){
+        case 0:
+          sele.nombreSeleccion = parse;
+           break;
+        case 1:
+           sele.partidosGanados;
+           break;
+        case 2:
+          sele.partidosPerdidos;
+          break;
+        case 3:
+          sele.partidosEmpatados;
+          break;
+        case 4:
+          sele.golesAnotados;
+          break;
+        case 5:
+          sele.maximoGoleador = parse;
+          break;
+        case 6:
+          sele.golesJugador;
+          break;
+
+      }
+      cont++;
+    }
+  }
+  return in;
+}
+
+
+ostream& operator<<(ostream& out, const Seleccion& sele){
+
+   out<<sele.nombreSeleccion<<","<<sele.partidosGanados<<","<<sele.partidosPerdidos<<","<<sele.partidosEmpatados<<","<<sele.golesAnotados<<","<<sele.maximoGoleador<<","<<sele.golesJugador<<endl;
+   return out;
 
 }
 
