@@ -4,7 +4,7 @@
 
 class Nodo{
 
-  private:
+public:
     Seleccion* seleccion;
     Nodo* nodo;
 

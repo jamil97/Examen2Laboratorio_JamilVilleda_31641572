@@ -5,7 +5,7 @@ using namespace std;
 
 class Seleccion{
 
-  private:
+  public:
 
     string nombreSeleccion;
     int partidosGanados;

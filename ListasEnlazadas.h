@@ -4,8 +4,9 @@
 
 class ListasEnlazadas{
 
-  private:
+  public:
     Nodo* siguiente;
+    Nodo* inicio;
     int posicion;
 
 
@@ -14,6 +15,7 @@ class ListasEnlazadas{
     void push_back(Nodo*);
     void insertar(Nodo*, int);
     bool getNext(Nodo*);
+    void listar();
 
 };
 #endif

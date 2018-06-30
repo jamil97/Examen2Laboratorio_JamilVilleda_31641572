@@ -3,7 +3,7 @@
 using namespace std;
 
 ListasEnlazadas::ListasEnlazadas(){
-
+  siguiente = NULL;
 }
 
 void ListasEnlazadas::push_back(Nodo* pNodo){
@@ -30,4 +30,13 @@ bool ListasEnlazadas::getNext(Nodo* n){
     tiene = false;
   }
   return tiene;
+}
+
+void ListasEnlazadas::listar(){
+  Nodo* temp;
+  temp = siguiente;
+  while(temp != NULL){
+    cout<<temp->getNodo()<<endl;
+    temp = temp->nodo;
+  }
 }
